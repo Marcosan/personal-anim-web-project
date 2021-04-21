@@ -1,0 +1,103 @@
+.data-container {
+    margin-top: 350px;
+    display: flex;
+    flex-direction: column;
+    scroll-behavior: smooth;
+    /* pointer-events: none;
+    touch-action:none; */
+}
+.data-container > div {
+    width: auto;
+    border-radius: 0px;
+    margin-bottom: 55px;
+    /* pointer-events: all;
+    touch-action: auto; */
+}
+.data-content {
+    position: relative;
+    border-left: none;
+    z-index: 10;
+    height: 500px;
+}
+.data-container > .data-content:nth-child(odd) {
+    align-self: flex-start;
+}
+.data-container > .data-content:nth-child(even) {
+    align-self: flex-end;
+}
+
+.pipe-left, .pipe-right {
+    height: 200px;
+    width: 210px;
+    position: absolute;
+    /* top: -27px; */
+    z-index: 50;
+    cursor: pointer;
+}
+.pipe-left {
+    left: 0px;
+}
+.pipe-right {
+    right: 0px;
+}
+
+.mario-pipe {
+    width: 200px;
+    height: 230px;
+}
+
+#point1, #point2, #point3, #point4 {
+    position: absolute;
+    transition: 0.4s;
+    top: 8px;
+    z-index: 40;
+}
+
+#point1, #point3 {
+    left: 5px;
+}
+#point2, #point4 {
+    right: 0px;
+    transform: scaleX(-1);
+}
+
+.point-up {
+    top: -121px !important;
+}
+
+
+.plant-pipe {
+    width: 170px;
+    height: 200px;
+}
+
+#plant1, #plant2, #plant3, #plant4 {
+    position: absolute;
+    transition: 0.4s;
+    top: 0px;
+    z-index: 40;
+    background-image: url("../../assets/images/planta-1.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    animation: movePlant 0.12s steps(3, end) 1s infinite alternate;
+}
+
+#plant1, #plant3 {
+    left: 20px;
+}
+#plant2, #plant4 {
+    right: 21px;
+}
+
+.plant-up {
+    top: -200px !important;
+}
+
+@keyframes movePlant {
+    0% {
+        background-image: url("../../assets/images/planta-1.png");
+    }
+    100% {
+        background-image: url("../../assets/images/planta-2.png");
+    }
+}

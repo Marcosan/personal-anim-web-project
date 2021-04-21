@@ -1,0 +1,18 @@
+.nav-container {
+    height: 0px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    transition: 0.3s;
+}
+.open-nav-container {
+    height: 40px;
+}
+
+.itemAElm {
+    /* padding: 15px 0px; */
+    padding-left: 15px;
+    padding-right: 10px;
+    color: #fff;
+    cursor: pointer;
+}
