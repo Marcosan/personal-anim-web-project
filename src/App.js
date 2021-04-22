@@ -29,14 +29,14 @@ class App extends React.Component {
     render(){
         return (
             <BrowserRouter>
-                <div>
+                <div style={{ backgroundColor: '#eaeaea' }}>
                     {
                         (this.state.isLoaded)
-                        ? Array(10).fill(0).map((value, index) => {
+                        ? Array(100).fill(0).map((value, index) => {
                             var hWindow = window.document.body.offsetHeight;
                             return (
                                 <div key={index} style={{ width: '20px', height: '1px', borderBottom: "1px solid red",
-                                    position: 'absolute', right: '0', top: (hWindow / 10) * index, fontSize: '9px' }}>{(index/10)}</div>
+                                    position: 'absolute', right: '0', top: (hWindow / 100) * index, fontSize: '9px' }}>{(index)}</div>
                             );
                         })
                         : null

@@ -1,19 +1,16 @@
 .data-container {
-    margin-top: 350px;
+    padding-top: 350px;
     display: flex;
     flex-direction: column;
     scroll-behavior: smooth;
     /* pointer-events: none;
     touch-action:none; */
 }
-.data-container > div {
+
+.data-content {
     width: auto;
     border-radius: 0px;
-    margin-bottom: 55px;
-    /* pointer-events: all;
-    touch-action: auto; */
-}
-.data-content {
+    padding-bottom: 55px;
     position: relative;
     border-left: none;
     z-index: 10;
@@ -101,3 +98,96 @@
         background-image: url("../../assets/images/planta-2.png");
     }
 }
+
+
+
+
+.plantlarge-content {
+    /* position: relative; */
+    /* height: 500px; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.plant-large {
+    width: 150px;
+    height: 250px;
+}
+
+
+
+@keyframes move-sun {
+    from {
+      transform: rotate(-45deg);
+    }
+    
+    to {
+      transform: rotate(135deg);
+    }
+}
+  
+.sun {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    /* transform: rotate(45deg); */
+    background-color: aqua;
+    /* animation: move-sun 3s forwards; */
+}
+  
+.sun::before {
+    content: "";
+    position: absolute;
+    top: -25px;
+    left: -25px;
+    width: 50px;
+    height: 50px;
+    background-color: #ff0;
+}
+
+#path-scroll {
+    position: absolute;
+    /* top: 170px;
+    left: 230px; */
+    /* background-color: burlywood; */
+    z-index: 100;
+}
+
+#box{
+    width: 5px;
+    height: 5px;
+    position: absolute;
+    top: 170px;
+    left: 230px;
+    opacity: 0.8;
+    background: red;
+    z-index: 9;
+    transition: 0.1s;
+}
+
+
+svg {
+    width: 300px;
+    display: block;
+    position: absolute;
+}
+  
+#point3 {
+    offset-path: path('M 100 350 q 150 -300 300 0');
+    offset-distance: 0%;
+    offset-rotate: 0deg;
+
+    animation: red-ball 2s linear alternate forwards;
+    /* offset-rotate: 90deg; */
+}
+
+.ball-reverse {
+    animation: red-ball 2s linear reverse forwards;
+}
+
+@keyframes red-ball {
+    100% {
+        offset-distance: 100%;
+    }
+}
+  
