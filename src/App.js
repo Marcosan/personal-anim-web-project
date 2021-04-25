@@ -35,7 +35,7 @@ class App extends React.Component {
                         ? Array(100).fill(0).map((value, index) => {
                             var hWindow = window.document.body.offsetHeight;
                             return (
-                                <div key={index} style={{ width: '20px', height: '1px', borderBottom: "1px solid red",
+                                <div key={index} style={{ width: '25px', height: '2px', borderBottom: "1px solid red",
                                     position: 'absolute', right: '0', top: (hWindow / 100) * index, fontSize: '9px' }}>{(index)}</div>
                             );
                         })

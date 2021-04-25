@@ -1,3 +1,16 @@
+.tuberia-flotante {
+    height: 23px;
+    padding: 2px 10px;
+    cursor: pointer;
+    position: fixed;
+    top: 0;
+    right: 50px;
+    z-index: 100;
+    border: 1px solid #666;
+    background-color: #fff;
+    opacity: 0.5;
+}
+
 .data-container {
     padding-top: 350px;
     display: flex;
@@ -43,7 +56,7 @@
     height: 230px;
 }
 
-#point1, #point2, #point3, #point4 {
+#point1, #point2,  #point4 {
     position: absolute;
     transition: 0.4s;
     top: 8px;
@@ -101,6 +114,9 @@
 
 
 
+.point-up-plant {
+    /* -webkit-transform: translate(0,0) !important; */
+}
 
 .plantlarge-content {
     /* position: relative; */
@@ -115,36 +131,6 @@
 }
 
 
-
-@keyframes move-sun {
-    from {
-      transform: rotate(-45deg);
-    }
-    
-    to {
-      transform: rotate(135deg);
-    }
-}
-  
-.sun {
-    position: absolute;
-    width: 400px;
-    height: 400px;
-    /* transform: rotate(45deg); */
-    background-color: aqua;
-    /* animation: move-sun 3s forwards; */
-}
-  
-.sun::before {
-    content: "";
-    position: absolute;
-    top: -25px;
-    left: -25px;
-    width: 50px;
-    height: 50px;
-    background-color: #ff0;
-}
-
 #path-scroll {
     position: absolute;
     /* top: 170px;
@@ -153,41 +139,71 @@
     z-index: 100;
 }
 
-#box{
-    width: 5px;
-    height: 5px;
+#obj {
+    background: blue;
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
     position: absolute;
-    top: 170px;
-    left: 230px;
-    opacity: 0.8;
-    background: red;
-    z-index: 9;
-    transition: 0.1s;
+    /* Align center */
+    top:-10px;
+    left: -10px;
+    opacity: 0.5;
 }
 
-
-svg {
-    width: 300px;
-    display: block;
-    position: absolute;
-}
-  
 #point3 {
-    offset-path: path('M 100 350 q 150 -300 300 0');
+    position: absolute;
+    /* transition: 0.4s; */
+    background-image: url("../../assets/images/mario.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    top: 115px;
+    z-index: 40;
+}
+.curve-jump {
+    /* M x y (curva) mitad_de_curva altura_curva(negativo) ancho_curva  */
+    /* offset-path: path('M 100 0 q 250 -300 500 0'); */
     offset-distance: 0%;
     offset-rotate: 0deg;
-
-    animation: red-ball 2s linear alternate forwards;
     /* offset-rotate: 90deg; */
+    animation: path-jump 1.5s linear alternate forwards;
 }
 
-.ball-reverse {
-    animation: red-ball 2s linear reverse forwards;
-}
-
-@keyframes red-ball {
+@keyframes path-jump {
+    20% {
+        top: -215px;
+        motion-offset: 0%;
+        offset-distance: 0%;
+    }
+    50% {
+        background-image: url("../../assets/images/mario.png");
+        top: -215px;
+        motion-offset: 0%;
+        offset-distance: 0%;
+    }
+    51% {
+        background-image: url("../../assets/images/mario-jump.png");
+    }
+    80% {
+        top: -215px;
+        motion-offset: 100%;
+        offset-distance: 100%;
+    }
+    99% {
+        transform: scaleX(1);
+        background-image: url("../../assets/images/mario-jump.png");
+        /* background-image: url("../../assets/images/mario-plant-2.png"); */
+        /* transform: scaleX(-1); */
+        top: 200px;
+        motion-offset: 100%;
+        offset-distance: 100%;
+    }
     100% {
+        background-image: url("../../assets/images/mario-plant-2.png");
+        /* background-image: url("../../assets/images/mario-plant-2.png"); */
+        transform: scaleX(-1);
+        top: 200px;
+        motion-offset: 100%;
         offset-distance: 100%;
     }
 }
-  
