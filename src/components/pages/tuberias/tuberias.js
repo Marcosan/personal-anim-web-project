@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import "./tuberias.css"
 
+var marioIsTop = true;
 export class Tuberias extends React.Component {
     constructor(props) {
         super();
@@ -8,6 +9,7 @@ export class Tuberias extends React.Component {
             scrollPosition: '0px',
             eventoTexto: '',
             contJump: 0,
+            scrollOld: 0,
         }
         this.refScrollGuide = React.createRef();
 
@@ -20,33 +22,7 @@ export class Tuberias extends React.Component {
     scrollManager() {
         const hWindow = window.document.body.offsetHeight;
         const wWindow = window.document.body.offsetWidth;
-
-        // var jumpContainer = document.getElementById('jump-container');
-        // var point3 = document.getElementById('point3');
-        // var path = document.getElementById('path-jump');
-        // var svg = document.getElementById('svg-jump');
-        // var obj = document.getElementById('obj');
-        // var prcnt = 0;
-
         let paramsJump;
-        // Set jump svg
-        // var hSvgJump = 300;
-        // var wSvgJump = wWindow / 2.6;
-        // svg.setAttribute("width", wSvgJump);
-        // svg.setAttribute("height", hSvgJump);
-        // path.setAttribute("d", `M 0 ${hSvgJump-100} q ${wSvgJump / 2} -${hSvgJump+100} ${wSvgJump} 0`);
-        // jumpContainer.style.top = (-point3.offsetTop - 400) + 'px';
-        // jumpContainer.style.left = (point3.offsetLeft + 100) + 'px';
-        // console.log(svg);
-        // console.log(path);
-        // console.log(point3.offsetLeft, point3.offsetTop);
-        // var pathLength = Math.floor( path.getTotalLength() );
-        // let paramsJump = {
-        //     pathLength: pathLength,
-        //     obj: point3,
-        //     path: path,
-        //     prcnt: prcnt,
-        // }
 
 		window.addEventListener("scroll", (event) => {
 		    var scrollPercentage = (document.documentElement.scrollTop + document.body.scrollTop)
@@ -87,29 +63,37 @@ export class Tuberias extends React.Component {
             point2.classList.remove("point-up");
         }
         
-        // if (scrollPercentage > 0.22 && scrollPercentage < 0.26) {
-        //     this.setState({ eventoTexto: 'Tubería Mario 3' });
-        //     if(!point3.classList.contains("point-up-plant"))
-        //         point3.className = point3.className + ' point-up-plant';
-        // } else {
-        //     point3.classList.remove("point-up-plant");
-        // }
-        var minJump = 0.26;
-        var maxJump = 0.29;
-        if (scrollPercentage > minJump && scrollPercentage < maxJump) {
-            this.setState({ eventoTexto: 'Salto Mario' });
-            // this.animJumpToPlant(obj, scrollPercentage, minJump, maxJump, 200)
-            // Modificar el path de salto para igualarlo con point3 y mantener continuidad
-            // point3.classList.remove("curve-jump-reverse");
-            if(!point3.classList.contains("curve-jump")){
-                point3.style.offsetPath = "path('M 100 115 q 250 -300 500 0')";
-                point3.className = point3.className + ' curve-jump';
-            }
-            // this.animJumpToPlant(scrollPercentage, paramsJump, minJump, maxJump);
-        }
+        var minJump = 0.33;
+        this.animJumpToPlant(point3, scrollPercentage, minJump);
+        
     }
 
-    animJumpToPlant(elemento, scrollPerc, minJump, maxJump, h, jumpInterval) {
+    animJumpToPlant(elemento, scrollPercentage, minJump) {
+        if (scrollPercentage < minJump) {
+            if(!marioIsTop){
+                console.log('Mario cruzó hacia arriba!!!');
+                elemento.classList.remove("curve-jump");
+                elemento.classList.remove("curve-jump-reverse");
+                this.setState({ eventoTexto: 'Salto Mario reverse' });
+                elemento.style.animation = 'none';
+                elemento.getClientRects(); /* trigger reflow */
+                elemento.style.animation = null; 
+                elemento.className = elemento.className + ' curve-jump-reverse';
+            }
+            marioIsTop = true;
+        } else {
+            if(marioIsTop){
+                console.log('Mario cruzó hacia abajo!!!');
+                elemento.classList.remove("curve-jump");
+                elemento.classList.remove("curve-jump-reverse");
+                this.setState({ eventoTexto: 'Salto Mario' });
+                elemento.style.animation = 'none';
+                elemento.getClientRects(); /* trigger reflow */
+                elemento.style.animation = null; 
+                elemento.className = elemento.className + ' curve-jump';
+            }
+            marioIsTop = false;
+        }
     }
 
     animJumpToPlant2(scrollPercentage, paramsJump, minJump, maxJump) {

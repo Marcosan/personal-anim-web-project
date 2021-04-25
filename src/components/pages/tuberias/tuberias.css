@@ -157,16 +157,30 @@
     background-image: url("../../assets/images/mario.png");
     background-size: contain;
     background-repeat: no-repeat;
-    top: 115px;
+    top: 4px;
     z-index: 40;
 }
 .curve-jump {
     /* M x y (curva) mitad_de_curva altura_curva(negativo) ancho_curva  */
-    /* offset-path: path('M 100 0 q 250 -300 500 0'); */
+    offset-path: path('M 100 115 q 250 -300 500 0');
     offset-distance: 0%;
     offset-rotate: 0deg;
-    /* offset-rotate: 90deg; */
-    animation: path-jump 1.5s linear alternate forwards;
+    animation-name: path-jump;
+    animation-duration: 0.7s;
+    animation-timing-function: linear;
+    animation-direction: normal;
+    animation-fill-mode: forwards;
+    /* animation: path-jump 1s linear alternate forwards; */
+}
+.curve-jump-reverse {
+    offset-path: path('M 100 115 q 250 -300 500 0');
+    offset-distance: 0%;
+    offset-rotate: 0deg;
+    animation-name: path-jump;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-direction: reverse;
+    animation-fill-mode: forwards;
 }
 
 @keyframes path-jump {
