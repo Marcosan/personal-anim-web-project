@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 import "./tuberias.css"
 
 var marioIsTop = true;
+var isScrolling = false;
 export class Tuberias extends React.Component {
     constructor(props) {
         super();
@@ -14,6 +15,7 @@ export class Tuberias extends React.Component {
         this.refScrollGuide = React.createRef();
 
         this.animJumpToPlant = this.animJumpToPlant.bind(this);
+        this.animMoveMarioPlant = this.animMoveMarioPlant.bind(this);
     }
 	componentDidMount() {
         this.scrollManager();
@@ -21,8 +23,19 @@ export class Tuberias extends React.Component {
 
     scrollManager() {
         const hWindow = window.document.body.offsetHeight;
-        const wWindow = window.document.body.offsetWidth;
+        // const wWindow = window.document.body.offsetWidth;
         let paramsJump;
+        var point1 = document.querySelector('#point1');
+        var point2 = document.querySelector('#point2');
+        var point3 = document.querySelector('#point3');
+        var point4 = document.querySelector('#point4');
+
+        const elements = {
+            point1: point1,
+            point2: point2,
+            point3: point3,
+            point4: point4,
+        }
 
 		window.addEventListener("scroll", (event) => {
 		    var scrollPercentage = (document.documentElement.scrollTop + document.body.scrollTop)
@@ -30,7 +43,7 @@ export class Tuberias extends React.Component {
 
 			if (scrollPercentage < 0.99) {
                 // paramsJump['scrollPercentage'] = scrollPercentage;
-                this.moveElmScrollManager(scrollPercentage, paramsJump);
+                this.moveElmScrollManager(elements, scrollPercentage, paramsJump);
                 // this.animJumpToPlant(paramsJump);
                 // this.refScrollGuide.current.st
                 this.setState({ scrollPosition: hWindow * scrollPercentage + 'px' });
@@ -38,34 +51,61 @@ export class Tuberias extends React.Component {
 		});
     }
     
-    moveElmScrollManager(scrollPercentage, paramsJump = null) {
-        var point1 = document.querySelector('#point1');
-        var point2 = document.querySelector('#point2');
+    moveElmScrollManager(elements, scrollPercentage, paramsJump = null) {
+        // var point1 = document.querySelector('#point1');
+        // var point2 = document.querySelector('#point2');
         var point3 = document.querySelector('#point3');
-        var obj = document.querySelector('#obj');
         
         if (scrollPercentage >= 0 && scrollPercentage < 0.05 ) {
             this.setState({ eventoTexto: 'Tubería Mario 1' });
-            if(!point1.classList.contains("point-up")){
-                point1.className = point1.className + ' point-up';
+            if(!elements.point1.classList.contains("point-up")){
+                elements.point1.className = elements.point1.className + ' point-up';
             }
         }
         else {
-            point1.classList.remove("point-up");
+            elements.point1.classList.remove("point-up");
         }
 
         if (scrollPercentage > 0.1 && scrollPercentage < 0.2 ) {
             this.setState({ eventoTexto: 'Tubería Mario 2' });
-            if(!point2.classList.contains("point-up"))
-                point2.className = point2.className + ' point-up';
+            if(!elements.point2.classList.contains("point-up"))
+                elements.point2.className = elements.point2.className + ' point-up';
         }
         else {
-            point2.classList.remove("point-up");
+            elements.point2.classList.remove("point-up");
         }
         
         var minJump = 0.33;
         this.animJumpToPlant(point3, scrollPercentage, minJump);
+
+        this.animMoveMarioPlant(elements.point4, point3, scrollPercentage, 0.39);
         
+    }
+
+    animMoveMarioPlant(elemento, elemento2, scrollPercentage, minMovePlant) {
+        var intervaloPlant;
+        if (scrollPercentage > minMovePlant) {
+            isScrolling = true;
+            if (isScrolling) {
+                elemento.style.animationPlayState = 'running';
+                console.log('moviendo...');
+            } else {
+                elemento.style.animationPlayState = 'paused';
+            }
+            elemento2.style.opacity = 0;
+            if(!elemento.classList.contains("anim-move-plant")){
+                elemento.className = elemento.className + ' anim-move-plant';
+            }
+            intervaloPlant = setInterval(() => {
+                isScrolling = false;
+            }, 1000);
+        } else {
+            elemento2.style.opacity = 1;
+            elemento.classList.remove("anim-move-plant");
+            if(!!intervaloPlant) {
+                clearInterval(intervaloPlant);
+            }
+        }
     }
 
     animJumpToPlant(elemento, scrollPercentage, minJump) {
@@ -94,18 +134,6 @@ export class Tuberias extends React.Component {
             }
             marioIsTop = false;
         }
-    }
-
-    animJumpToPlant2(scrollPercentage, paramsJump, minJump, maxJump) {
-        // Get x and y values at a certain point in the line
-        var newPrcnt = (scrollPercentage - minJump) / (maxJump - minJump);
-        console.log("(" + scrollPercentage + " - " + minJump + ") / (" + maxJump + " - " + minJump + ")");
-        console.log(newPrcnt);
-        paramsJump.prcnt = (newPrcnt * paramsJump.pathLength);
-        var pt = paramsJump.path.getPointAtLength(paramsJump.prcnt);
-        pt.x = Math.round(pt.x);
-        pt.y = Math.round(pt.y);
-        paramsJump.obj.style.webkitTransform = 'translate3d('+pt.x+'px,'+pt.y+'px, 0)';
     }
 
     animPlant(index) {
@@ -160,6 +188,9 @@ export class Tuberias extends React.Component {
                             </svg>
                         </div> */}
                     </div>
+                    <div id="point4" className="mario-pipe"></div>
+                    {/* <div className="data-content" style={{ height: '200px' }}>
+                    </div> */}
                     <div className="plantlarge-content">
                         <img className="plant-large" src="assets/images/plant2.png" alt="pipe"/>
                         {
