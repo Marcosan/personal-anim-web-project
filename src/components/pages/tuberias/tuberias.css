@@ -162,7 +162,7 @@
 }
 .curve-jump {
     /* M x y (curva) mitad_de_curva altura_curva(negativo) ancho_curva  */
-    offset-path: path('M 100 115 q 250 -300 500 0');
+    offset-path: path('M 100 115 q 300 -300 620 0');
     offset-distance: 0%;
     offset-rotate: 0deg;
     animation-name: path-jump;
@@ -173,7 +173,7 @@
     /* animation: path-jump 1s linear alternate forwards; */
 }
 .curve-jump-reverse {
-    offset-path: path('M 100 115 q 250 -300 500 0');
+    offset-path: path('M 100 115 q 300 -300 620 0');
     offset-distance: 0%;
     offset-rotate: 0deg;
     animation-name: path-jump;
@@ -227,8 +227,8 @@
     position: fixed;
     background-size: contain;
     background-repeat: no-repeat;
-    top: 157px;
-    left: 505px;
+    top: 185px;
+    left: 625px;
     z-index: 40;
 }
 

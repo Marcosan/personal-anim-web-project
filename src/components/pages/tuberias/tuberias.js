@@ -49,6 +49,15 @@ export class Tuberias extends React.Component {
                 this.setState({ scrollPosition: hWindow * scrollPercentage + 'px' });
 			}
 		});
+
+        window.onscroll = function() {
+            if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight) {
+                point4.style.animationPlayState = 'paused';
+                console.log('FIN');
+            } else {
+                point4.style.animationPlayState = 'running';
+            }
+        }
     }
     
     moveElmScrollManager(elements, scrollPercentage, paramsJump = null) {
@@ -79,32 +88,25 @@ export class Tuberias extends React.Component {
         this.animJumpToPlant(point3, scrollPercentage, minJump);
 
         this.animMoveMarioPlant(elements.point4, point3, scrollPercentage, 0.39);
+
+        // if (scrollPercentage > 0.96) {
+        //     elements.point4.animationPlayState = 'paused';
+        // } else {
+        //     elements.point4.animationPlayState = 'running';
+        // }
+        // console.log(scrollPercentage);
         
     }
 
     animMoveMarioPlant(elemento, elemento2, scrollPercentage, minMovePlant) {
-        var intervaloPlant;
         if (scrollPercentage > minMovePlant) {
-            isScrolling = true;
-            if (isScrolling) {
-                elemento.style.animationPlayState = 'running';
-                console.log('moviendo...');
-            } else {
-                elemento.style.animationPlayState = 'paused';
-            }
             elemento2.style.opacity = 0;
             if(!elemento.classList.contains("anim-move-plant")){
                 elemento.className = elemento.className + ' anim-move-plant';
             }
-            intervaloPlant = setInterval(() => {
-                isScrolling = false;
-            }, 1000);
         } else {
             elemento2.style.opacity = 1;
             elemento.classList.remove("anim-move-plant");
-            if(!!intervaloPlant) {
-                clearInterval(intervaloPlant);
-            }
         }
     }
 
@@ -202,6 +204,8 @@ export class Tuberias extends React.Component {
                         }
                     </div>
                 </div>
+                {/* <div style={{ height: '100vh', width: '100vw', backgroundColor: 'green' }}>
+                </div> */}
             </Fragment>
 		);
 	}
