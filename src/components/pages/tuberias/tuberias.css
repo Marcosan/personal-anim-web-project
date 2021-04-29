@@ -297,3 +297,39 @@
         right: 100%;
     }
 }
+
+#nube1 {
+    position: absolute;
+    width: 100px;
+    height: 72px;
+    right: 20px;
+    top: 500px;
+}
+#nube2 {
+    position: absolute;
+    width: 150px;
+    height: 72px;
+    left: 20px;
+    top: 400px;
+}
+#nube3 {
+    position: absolute;
+    width: 100px;
+    height: 50px;
+    right: 100px;
+    top: 800px;
+}
+#nube4 {
+    position: absolute;
+    width: 100px;
+    height: 50px;
+    left: 300px;
+    top: 900px;
+}
+#nube5 {
+    position: absolute;
+    width: 100px;
+    height: 50px;
+    left: 100px;
+    top: 1100px;
+}

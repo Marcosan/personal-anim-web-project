@@ -226,6 +226,13 @@ export class Tuberias extends React.Component {
                             onClick={this.clickFlauta}
                         />
                         <img id='viento' className="viento" src="assets/images/viento.png" alt="pipe"/>
+                        <div>
+                            <img id="nube1" src="assets/images/nube1.png" alt="nube"/>
+                            <img id="nube2" src="assets/images/nube2.png" alt="nube"/>
+                            <img id="nube3" src="assets/images/nube3.png" alt="nube"/>
+                            <img id="nube4" src="assets/images/nube2.png" alt="nube"/>
+                            <img id="nube5" src="assets/images/nube3.png" alt="nube"/>
+                        </div>
                     </div>
                 </div>
                 {/* <div style={{ height: '100vh', width: '100vw', backgroundColor: 'green' }}>
