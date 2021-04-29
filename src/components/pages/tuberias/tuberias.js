@@ -29,6 +29,8 @@ export class Tuberias extends React.Component {
         var point2 = document.querySelector('#point2');
         var point3 = document.querySelector('#point3');
         var point4 = document.querySelector('#point4');
+        var flauta = document.querySelector('#flauta');
+        var viento = document.querySelector('#viento');
 
         const elements = {
             point1: point1,
@@ -53,10 +55,28 @@ export class Tuberias extends React.Component {
         window.onscroll = function() {
             if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight) {
                 point4.style.animationPlayState = 'paused';
+                flauta.className = flauta.className + ' flauta-anim';
+                viento.style.top = point4.offsetTop + 'px';
+                viento.style.height = point4.offsetHeight + 'px';
+                viento.style.width = point4.offsetWidth + 'px';
                 console.log('FIN');
             } else {
+                flauta.classList.remove("flauta-anim");
+                viento.classList.remove("viento-anim");
+                point4.style.visibility = 'visible';
                 point4.style.animationPlayState = 'running';
             }
+        }
+    }
+
+    clickFlauta() {
+        var viento = document.querySelector('#viento');
+        setTimeout(function(){
+            var point4 = document.querySelector('#point4');
+            point4.style.visibility = 'hidden';
+        }, 50);
+        if(!viento.classList.contains("viento-anim")){
+            viento.className = viento.className + ' viento-anim';
         }
     }
     
@@ -202,6 +222,10 @@ export class Tuberias extends React.Component {
                                 );
                             })
                         }
+                        <img id='flauta' className="flauta" src="assets/images/flauta.png" alt="pipe"
+                            onClick={this.clickFlauta}
+                        />
+                        <img id='viento' className="viento" src="assets/images/viento.png" alt="pipe"/>
                     </div>
                 </div>
                 {/* <div style={{ height: '100vh', width: '100vw', backgroundColor: 'green' }}>
